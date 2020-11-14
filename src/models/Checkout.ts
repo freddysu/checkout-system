@@ -1,7 +1,7 @@
 import { ProductID } from './Products';
 import pricingRules, { PricingRule } from './PricingRules';
 
-class Checkout {
+export class Checkout {
 
   items: ProductID[] = [];
 

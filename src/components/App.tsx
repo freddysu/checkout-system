@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { ProductID } from './models/Products';
-import checkout from './models/Checkout';
+import { Checkout } from '../models/Checkout';
+import { ProductID } from '../models/Products';
 
 const customerList = [
   'default',
@@ -10,7 +10,11 @@ const customerList = [
   'MYER'
 ];
 
-function App() {
+interface AppProps {
+  checkout: Checkout;
+};
+
+const App: React.FC<AppProps> = ({ checkout }) => {
   const [customer, setCustomer] = useState('default');
   const [items, setItems] = useState(checkout.items);
   const [total, setTotal] = useState(0);
@@ -23,13 +27,13 @@ function App() {
     const id = evt.currentTarget.id as ProductID;
     checkout.add(id);
     setItems([...checkout.items]);
-  }
+  };
 
   const onRemoveAd = (evt: React.MouseEvent<HTMLButtonElement>) => {
     const id = evt.currentTarget.id as ProductID;
     checkout.remove(id);
     setItems([...checkout.items]);
-  }
+  };
 
   useEffect(() => {
     checkout.clear();
@@ -37,11 +41,11 @@ function App() {
     checkout.add(ProductID.STAND_OUT);
     checkout.add(ProductID.PREMIUM);
     setItems([...checkout.items]);
-  }, [])
+  }, [checkout]);
   
   useEffect(() => {
     setTotal(checkout.total(customer));
-  }, [customer, items])
+  }, [checkout, customer, items]);
 
   return (
     <div className="App">
@@ -53,11 +57,11 @@ function App() {
         </div>
         <div className="row">
           <label>Classic Ad:</label>
-          <span className="value">
+          <span data-testid="classic-number" className="value">
             {items.filter(item => item === ProductID.CLASSIC).length}
           </span>
-          <button id={ProductID.CLASSIC} onClick={onAddAd}>+</button>
-          <button id={ProductID.CLASSIC} onClick={onRemoveAd}>-</button>
+          <button data-testid="add-classic-btn" id={ProductID.CLASSIC} onClick={onAddAd}>+</button>
+          <button data-testid="remove-classic-btn" id={ProductID.CLASSIC} onClick={onRemoveAd}>-</button>
         </div>
         <div className="row">
           <label>Stand out Ad:</label>
@@ -75,7 +79,9 @@ function App() {
           <button id={ProductID.PREMIUM} onClick={onAddAd}>+</button>
           <button id={ProductID.PREMIUM} onClick={onRemoveAd}>-</button>
         </div>
-        <div className="row">Total: ${total.toFixed(2)}</div>
+        <div className="row">
+          Total: $<span data-testid="total">{total.toFixed(2)}</span>
+        </div>
       </div>
     </div>
   );

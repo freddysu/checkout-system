@@ -15,3 +15,8 @@ $npm i
 ```javascript
 $npm start
 ```
+
+# Run Test
+```javascript
+$npm test
+```
