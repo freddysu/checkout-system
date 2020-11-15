@@ -1,22 +1,33 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Test Env
+## Online Demo
+https://freddysu.github.io/checkout-system
+
+## Environment
 ```
 $node -v // v12.16.1
 $npm -v // 6.1.0
 ```
 
-# Setup
+## Setup
 ```javascript
 $npm i
 ```
 
-# Run
+## Quick Start
 ```javascript
 $npm start
 ```
 
-# Run Test
+Then open http://localhost:3000
+
+## Run Test
 ```javascript
 $npm test
+```
+
+## Deploy
+```javascript
+$npm run build
+$npm run deploy // Deploy to gh-pages
 ```
